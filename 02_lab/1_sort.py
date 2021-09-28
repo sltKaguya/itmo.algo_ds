@@ -33,6 +33,5 @@ def merge(A):
 n = f_in.readline().strip()
 A = [int(i) for i in f_in.readline().split()]
 
-print(A)
 merge(A)
 print(" ".join([str(elem) for elem in A]), file=f_out)
