@@ -8,7 +8,8 @@ def merge(A):
         R = A[mid:]
         merge(L)
         merge(R)
-        i, j, k = 0
+        
+        i = j = k = 0
         
         while i < len(L) and j < len(R):
             if L[i] < R[j]:
@@ -21,20 +22,17 @@ def merge(A):
         
         while i < len(L):
             A[k] = L[i]
+            i += 1
             k += 1
 
         while j < len(R):
             A[k] = R[j]
+            j += 1
             k += 1
    
 n = f_in.readline().strip()
 A = [int(i) for i in f_in.readline().split()]
 
-print(merge(A))
-#B = []
-#for elem in A:
-#    B.append([elem])
-
-#while len(B) != 1:
-#    print(B)
-#    B.pop(0)
+print(A)
+merge(A)
+print(" ".join([str(elem) for elem in A]), file=f_out)
