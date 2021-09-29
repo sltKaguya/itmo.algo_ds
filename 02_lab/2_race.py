@@ -1,6 +1,3 @@
-from os import readlink
-
-
 f_in = open("race.in", "r")
 f_out = open("race.out", "w")
 
