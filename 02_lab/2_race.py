@@ -4,25 +4,24 @@ import random
 f_in = open("race.in", "r")
 f_out = open("race.out", "w")
 
-def partition(Dic, low, high):
-    Arr = list(dict.keys(Dic))
+def partition(Keys_arr, low, high):
     i = low - 1
-    pivot = Arr[high]
+    pivot = Keys_arr[high]
     for j in range(low, high):
-        if Arr[j] <= Arr[pivot]:
+        if Keys_arr[j] <= Keys_arr[pivot]:
             i += 1
-            Arr[i], Arr[j] = Arr[j], Arr[i]
+            Keys_arr[i], Keys_arr[j] = Keys_arr[j], Keys_arr[i]
     
-    Arr[i + 1], Arr[high] = Arr[high], Arr[i + 1]
+    Keys_arr[i + 1], Keys_arr[high] = Keys_arr[high], Keys_arr[i + 1]
 
     return i + 1
 
 def qsort(Dic, low, high):
-    Arr = list(dict.keys(Dic))
+    Keys_arr = list(dict.keys(Dic))
     if low < high:
-        pivot = partition(Arr, low, high)
-        qsort(Arr, low, pivot - 1)
-        qsort(Arr, pivot + 1 , high)
+        pivot = partition(Keys_arr, low, high)
+        qsort(Keys_arr, low, pivot - 1)
+        qsort(Keys_arr, pivot + 1 , high)
 
 n = int(f_in.readline().strip())
 lines = f_in.read().splitlines()
@@ -35,5 +34,5 @@ for line in lines:
         Cntr_runn[key] += " " + value
 
 print(Cntr_runn)
-#qsort(Cntr_runn, 0, len(Cntr_runn) - 1)
 qsort(Cntr_runn, 0, len(Cntr_runn) - 1)
+#qsort(Cntr_runn, 0, len(Cntr_runn) - 1)
