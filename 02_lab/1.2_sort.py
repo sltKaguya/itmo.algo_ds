@@ -6,10 +6,9 @@ A = [[int(i)] for i in f_in.readline().split(" ")]
 B = A
 while len(A) != 1:
     A = B
-    i = j = 0
+    i = j = k = 0
 
     while i < len(A[1]) and j < len(A[2]):
-        k = 0
         if A[1][i] < A[2][j]:
             B[1][k] = A[1][i]
             i += 1
@@ -19,12 +18,12 @@ while len(A) != 1:
         k += 1
 
     while i < len(A[1]):
-            B[1][k] = A[1][k]
+            B[1][k] = A[1][i]
             i += 1
             k += 1
 
-    while j < len(R):
-            A[k] = R[j]
+    while j < len(A[2]):
+            B[1][k] = A[1][j]
             j += 1
             k += 1
 
