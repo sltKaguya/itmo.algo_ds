@@ -1,38 +1,39 @@
 import random
-#from typing import List
 
-f_in = open("race.in", "r")
+f_in = open("race.in")
 f_out = open("race.out", "w")
 
-def partition(Keys_arr, low, high):
-    i = low - 1
-    pivot = Keys_arr[high]
-    for j in range(low, high):
-        if Keys_arr[j] <= Keys_arr[pivot]:
-            i += 1
-            Keys_arr[i], Keys_arr[j] = Keys_arr[j], Keys_arr[i]
-    
-    Keys_arr[i + 1], Keys_arr[high] = Keys_arr[high], Keys_arr[i + 1]
+def qsort(Arr):
+    if len(Arr) < 2:
+        return Arr
+    rand_index = random.randint(0, len(Arr) - 1)
+    pivot = Arr[rand_index]
+    Arr.pop(rand_index)
 
-    return i + 1
+    Left = [i for i in Arr if i < pivot]
+    Right = [i for i in Arr if i >= pivot]
 
-def qsort(Dic, low, high):
-    Keys_arr = list(dict.keys(Dic))
-    if low < high:
-        pivot = partition(Keys_arr, low, high)
-        qsort(Keys_arr, low, pivot - 1)
-        qsort(Keys_arr, pivot + 1 , high)
+    Sorted_Arr = qsort(Left) + [pivot] + qsort(Right)
+    return Sorted_Arr
 
 n = int(f_in.readline().strip())
 lines = f_in.read().splitlines()
-Cntr_runn = {}
+Unsorted_dic = {}
 for line in lines:
     key, value = line.split()
-    if key not in Cntr_runn:
-        Cntr_runn.update({key: value})
+    if key not in Unsorted_dic:
+        Unsorted_dic[key] = [value]
     else:
-        Cntr_runn[key] += " " + value
+        Unsorted_dic[key] += [value]
 
-print(Cntr_runn)
-qsort(Cntr_runn, 0, len(Cntr_runn) - 1)
-#qsort(Cntr_runn, 0, len(Cntr_runn) - 1)
+Sorted_keys = qsort(list(Unsorted_dic.keys()))
+
+a = ""
+for elem in Sorted_keys:
+    if a == "":
+        a += "=== " + elem + " ===\n"
+    else:
+        a += "\n=== " + elem + " ===\n"
+    a += '\n'.join([i for i in Unsorted_dic[elem]])
+
+print(a, file=f_out)
