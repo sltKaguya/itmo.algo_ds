@@ -1,29 +1,28 @@
 f_in = open("inversions.in")
 f_out = open("inversions.out", "w")
 
-def msort(A):
-    if len(A) > 1:
-        mid = A // 2
-        L = A[:mid]
-        R = A[mid:]
+def msort_count(arr):
+    if len(arr) > 1:
+        mid = arr // 2
+        left = arr[:mid]
+        right = arr[mid:]
 
-        msort(L)
-        msort(R)
+        msort_count(left)
+        msort_count(right)
 
         i = j = k = 0
-        while i < len(L) and j < len(R):
-            if L[i] < R[j]:
-                A[k] = L[i]
+        while i < len(left) and j < len(right):
+            if left[i] < right[j]:
+                arr[k] = left[i]
                 i += 1
                 k += 1
-                count += 1
             else:
-                A[k] = R[j]
+                arr[k] = right[j]
                 j += 1
                 k +=1
-        while i < len(L):
-            A[k] = L[i]
+        while i < len(left):
+            arr[k] = left[i]
             i += 1
-        while j < len(R):
-            A[k] = R[j]
+        while j < len(right):
+            arr[k] = right[j]
             j += 1
