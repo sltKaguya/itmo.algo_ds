@@ -38,6 +38,5 @@ def msort_inversions(arr):
 n = int(f_in.readline().strip())
 
 unsorted_arr = [int(i) for i in f_in.readline().split()]
-print(unsorted_arr)
 sorted_arr, inversions = msort_inversions(unsorted_arr)
 print(inversions, file=f_out)
