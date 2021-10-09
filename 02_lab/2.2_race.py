@@ -10,7 +10,7 @@ def merge_sort(arr):
 
         i = j = k = 0
         while i < len(left) and j < len(right):
-            if left[i].split()[0] <= right[j].split()[0]:
+            if (left[i][:left[i].find(" ")]) <= (right[j][:right[j].find(" ")]):
                 arr[k] = left[i]
                 i += 1
             else:
@@ -27,19 +27,16 @@ def merge_sort(arr):
             j += 1
             k += 1
 
-n = int(f_in.readline().strip())
+n = int(f_in.readline())
 my_arr = []
 for i in range(n):
     my_arr.append(f_in.readline().strip())
 
 merge_sort(my_arr)
-
-country = my_arr[0][:my_arr[0].find(" ")]
-ans = "=== " + my_arr[0][:my_arr[0].find(" ")] + " ===\n" + \
-    my_arr[0][my_arr[0].find(" ") + 1:]
-for i in range(1, n):
-    if my_arr[i][:my_arr[i].find(" ")] != country:
-        country = my_arr[i][:my_arr[i].find(" ")]
-        ans += "\n=== " + my_arr[i][:my_arr[i].find(" ")] + " ==="
-    ans += "\n" + my_arr[i][my_arr[i].find(" ") + 1:]
-print(ans, file=f_out)
+country_check = ""
+for i in range(n):
+    country = my_arr[i][:my_arr[i].find(" ")]
+    if country != country_check:
+        country_check = country
+        f_out.write("=== " + country + " ===\n")
+    f_out.write(my_arr[i][my_arr[i].find(" ") + 1:] + "\n")
