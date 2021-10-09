@@ -33,9 +33,13 @@ for i in range(n):
     my_arr.append(f_in.readline().strip())
 
 merge_sort(my_arr)
-ans = "=== " + my_arr[0].split()[0] + " ===\n" + my_arr[0].split()[1]
-for i in range(1, len(my_arr)):
-    if my_arr[i].split()[0] != my_arr[i - 1].split()[0]:
-        ans += "\n=== " + my_arr[i].split()[0] + " ==="
-    ans += "\n" + my_arr[i].split()[1]
+
+country = my_arr[0][:my_arr[0].find(" ")]
+ans = "=== " + my_arr[0][:my_arr[0].find(" ")] + " ===\n" + \
+    my_arr[0][my_arr[0].find(" ") + 1:]
+for i in range(1, n):
+    if my_arr[i][:my_arr[i].find(" ")] != country:
+        country = my_arr[i][:my_arr[i].find(" ")]
+        ans += "\n=== " + my_arr[i][:my_arr[i].find(" ")] + " ==="
+    ans += "\n" + my_arr[i][my_arr[i].find(" ") + 1:]
 print(ans, file=f_out)
