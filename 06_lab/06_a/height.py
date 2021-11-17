@@ -33,8 +33,11 @@ tree = BinaryTree()
 array = []
 
 for i in range(n):
-    array.append([int(i) for i in f_in.readline().split()])
-    
+    line = f_in.readline().split()
+    temp_array = []
+    for y in range(3):
+        temp_array.append(int(line[y]))
+    array.append(temp_array)
 if len(array) != 0:
     tree.root = Node(array[0][0])
     tree.root.left = tree.create_node(array, array[0][1] - 1)
