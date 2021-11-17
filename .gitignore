@@ -1,9 +1,5 @@
 /02_lab/qsort.py
 *.in
 *.out
-*.pdf
-02_lab/2.1_race.c
-code_lab_1
-03_lab/priorityqueue.go
 *.code-workspace
 04_lab/binarysearch.py
