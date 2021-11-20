@@ -3,3 +3,4 @@
 *.code-workspace
 04_lab/binarysearch.py
 lectures
+.DS_Store
