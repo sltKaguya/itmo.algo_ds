@@ -127,4 +127,3 @@ while index < len(lines):
     index += 1
 
 f_out.write("".join(results))
-#print(results)
