@@ -6,3 +6,5 @@ lectures
 .DS_Store
 06_lab/quack.py
 06_lab/quack_v2.py
+06_lab/quack_mil.py
+06_lab/test.py
