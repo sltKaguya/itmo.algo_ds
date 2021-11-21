@@ -118,8 +118,7 @@ while index < len(lines):
             index = str_keys[lines[index][3:]] - 1
 
     elif lines[index][0] == "Q":
-        f_out.write("".join(results))
-        quit()
+        break
 
     else:
         pass
