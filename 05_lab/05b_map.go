@@ -1,5 +1,10 @@
 package main
 
+import (
+	"bufio"
+	"os"
+)
+
 type Node struct {
 	index    int
 	value    string
@@ -15,9 +20,12 @@ func (list *LinkedList) put(index int, value string) {
 	elem := &Node{index: index, value: value}
 
 	if list.get(index) == nil {
-		elem = nil
+		if list.first != nil {
+			list.first.previous = elem
+		}
+		elem.next = list.first
+		list.first = elem
 	}
-
 }
 
 func (list *LinkedList) get(index int) *Node {
@@ -46,4 +54,10 @@ func (list *LinkedList) delete(index int) {
 			list.first = elem.next
 		}
 	}
+}
+
+func main() {
+	f_in, _ := os.Open("set.in")
+	scanner := bufio.NewScanner(f_in)
+	scanner.Split(bufio.ScanLines)
 }
