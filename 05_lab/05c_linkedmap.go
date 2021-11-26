@@ -8,17 +8,19 @@ import (
 )
 
 type Node struct {
-	index    int
-	value    string
-	next     *Node
-	previous *Node
+	index      int
+	value      string
+	next       *Node
+	previous   *Node
+	next_queue *Node
+	prev_queue *Node
 }
 
 type LinkedList struct {
 	first *Node
 }
 
-func (list *LinkedList) put(index int, value string) {
+func (list *LinkedList) put(index int, value string, prev_queue *Node) *Node {
 	elem := &Node{index: index, value: value}
 
 	if list.get(index) == nil {
@@ -30,10 +32,16 @@ func (list *LinkedList) put(index int, value string) {
 	} else {
 		list.get(index).value = value
 	}
+	elem.prev_queue = prev_queue
+	if prev_queue != nil {
+		prev_queue.next_queue = elem
+	}
+	return elem
 }
 
-func (list *LinkedList) delete(index int) {
+func (list *LinkedList) delete(index int, prev_queue *Node) *Node {
 	elem := list.get(index)
+	ret_node := prev_queue
 
 	if elem != nil {
 		if elem.next != nil {
@@ -44,7 +52,16 @@ func (list *LinkedList) delete(index int) {
 		} else {
 			list.first = elem.next
 		}
+		if elem.prev_queue != nil {
+			elem.prev_queue.next_queue = elem.next_queue
+		}
+		if elem.next_queue != nil {
+			elem.next_queue.prev_queue = elem.prev_queue
+		} else {
+			ret_node = elem
+		}
 	}
+	return ret_node
 }
 
 func (list *LinkedList) get(index int) *Node {
@@ -60,22 +77,26 @@ func (list *LinkedList) get(index int) *Node {
 	return elem
 }
 
-func (list *LinkedList) prev(index int) *Node {
+func (list *LinkedList) prev_q(index int) string {
 	elem := list.get(index)
 
 	if elem != nil {
-		return elem.previous
+		if elem.prev_queue != nil {
+			return elem.prev_queue.value
+		}
 	}
-	return elem
+	return "none"
 }
 
-func (list *LinkedList) next(index int) *Node {
+func (list *LinkedList) next_q(index int) string {
 	elem := list.get(index)
 
 	if elem != nil {
-		return elem.next
+		if elem.next_queue != nil {
+			return elem.next_queue.value
+		}
 	}
-	return elem
+	return "none"
 }
 
 func hash(key string, size int) int {
@@ -93,20 +114,20 @@ func main() {
 	var results []string
 	size := 100000
 	hash_table := make([]LinkedList, size)
+	var in_queue *Node = nil
 
 	for scanner.Scan() {
 		command := strings.Fields(scanner.Text())
 		index_hashed := hash(command[1], size)
 		index := int(math.Abs(float64(index_hashed % size)))
-		check := hash_table[index].get(index)
-
+		check := hash_table[index].get(index_hashed)
 		switch command[0] {
 		case "put":
 			value := command[2]
-			hash_table[index].put(index, value)
+			in_queue = hash_table[index].put(index_hashed, value, in_queue)
 
 		case "delete":
-			hash_table[index].delete(index)
+			in_queue = hash_table[index].delete(index_hashed, in_queue)
 
 		case "get":
 			if check != nil {
@@ -116,21 +137,13 @@ func main() {
 			}
 
 		case "prev":
-			if hash_table[index].prev(index) != nil {
-				results = append(results, check.previous.value)
-			} else {
-				results = append(results, "none")
-			}
+			results = append(results, hash_table[index].prev_q(index_hashed))
 
 		case "next":
-			if hash_table[index].prev(index) != nil {
-				results = append(results, check.next.value)
-			} else {
-				results = append(results, "none")
-			}
+			results = append(results, hash_table[index].next_q(index_hashed))
 		}
 	}
-	f_out, _ := os.Create("linedmap.out")
+	f_out, _ := os.Create("linkedmap.out")
 	f_out.WriteString(strings.Join(results, "\n"))
 	f_out.Close()
 }
