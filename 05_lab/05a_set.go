@@ -63,7 +63,7 @@ func main() {
 	scanner := bufio.NewScanner(f_in)
 	scanner.Split(bufio.ScanLines)
 	var results []string
-	size := 100000
+	size := 10000
 	hash_table := make([]LinkedList, size)
 
 	for scanner.Scan() {
