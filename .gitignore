@@ -16,4 +16,9 @@ go_intro.go
 >>>>>>> main
 06_lab/task6.zip
 06_lab/task6
+<<<<<<< HEAD
 06_lab/06d_quack_t4.py
+=======
+05_lab/LinkedMap.py
+05_lab/05c_linkedmap_t4.go
+>>>>>>> 86f60ce50b37da645a9fb6882e7c5d2ee1222fbc
