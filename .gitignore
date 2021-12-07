@@ -1,6 +1,9 @@
 *.in
 *.out
 *.code-workspace
+*.zip
+*.png
+
 04_lab/binarysearch.py
 lectures
 .DS_Store
@@ -9,16 +12,8 @@ lectures
 06_lab/quack_mil.py
 06_lab/test.py
 05_lab/test.py
-<<<<<<< HEAD
-*.png
-=======
 go_intro.go
->>>>>>> main
-06_lab/task6.zip
 06_lab/task6
-<<<<<<< HEAD
 06_lab/06d_quack_t4.py
-=======
 05_lab/LinkedMap.py
 05_lab/05c_linkedmap_t4.go
->>>>>>> 86f60ce50b37da645a9fb6882e7c5d2ee1222fbc
